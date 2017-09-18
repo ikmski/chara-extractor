@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"sort"
 
 	"github.com/urfave/cli"
@@ -83,5 +82,5 @@ func main() {
 
 	app.Action = mainAction
 
-	app.Run(os.Args)
+	app.RunAndExitOnError()
 }
