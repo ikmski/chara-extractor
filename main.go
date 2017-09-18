@@ -22,6 +22,14 @@ func outputDecimal(runes []rune) {
 	fmt.Printf("%d\n", runes[len(runes)-1])
 }
 
+func outputHexa(runes []rune) {
+
+	for i := 0; i < len(runes)-1; i++ {
+		fmt.Printf("%X,", runes[i])
+	}
+	fmt.Printf("%X\n", runes[len(runes)-1])
+}
+
 func mainAction(c *cli.Context) error {
 
 	if c.NArg() == 0 {
@@ -31,6 +39,8 @@ func mainAction(c *cli.Context) error {
 
 	if c.Bool("d") {
 		outputDecimal(extract(text))
+	} else if c.Bool("x") {
+		outputHexa(extract(text))
 	} else {
 		outputChar(extract(text))
 	}
@@ -48,6 +58,10 @@ func main() {
 		cli.BoolFlag{
 			Name:  "decimal, d",
 			Usage: "output decimal number?",
+		},
+		cli.BoolFlag{
+			Name:  "hexa, x",
+			Usage: "output hexadecimal number?",
 		},
 	}
 
