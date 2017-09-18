@@ -1,0 +1,13 @@
+dist: trusty
+
+language: go
+
+install:
+  - make install-deps
+
+script:
+  - make test
+
+notifications:
+  email: false
+
