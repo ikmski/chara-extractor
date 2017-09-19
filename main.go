@@ -11,26 +11,38 @@ var (
 	revision string
 )
 
-func outputChar(runes []rune) {
-
-	for _, r := range runes {
-		fmt.Printf("%v", string(r))
-	}
-	fmt.Print("\n")
-}
-
-func outputDecimal(runes []rune) {
+func outputChar(runes []rune, oneline bool) {
 
 	for i := 0; i < len(runes)-1; i++ {
-		fmt.Printf("%d,", runes[i])
+		if oneline {
+			fmt.Printf("%v", string(runes[i]))
+		} else {
+			fmt.Printf("%v\n", string(runes[i]))
+		}
+	}
+	fmt.Printf("%v\n", string(runes[len(runes)-1]))
+}
+
+func outputDecimal(runes []rune, oneline bool) {
+
+	for i := 0; i < len(runes)-1; i++ {
+		if oneline {
+			fmt.Printf("%d,", runes[i])
+		} else {
+			fmt.Printf("%d\n", runes[i])
+		}
 	}
 	fmt.Printf("%d\n", runes[len(runes)-1])
 }
 
-func outputHexa(runes []rune) {
+func outputHexa(runes []rune, oneline bool) {
 
 	for i := 0; i < len(runes)-1; i++ {
-		fmt.Printf("%X,", runes[i])
+		if oneline {
+			fmt.Printf("%X,", runes[i])
+		} else {
+			fmt.Printf("%X\n", runes[i])
+		}
 	}
 	fmt.Printf("%X\n", runes[len(runes)-1])
 }
@@ -43,11 +55,11 @@ func mainAction(c *cli.Context) error {
 	text := c.Args()
 
 	if c.Bool("d") {
-		outputDecimal(extract(text))
+		outputDecimal(extract(text), c.Bool("l"))
 	} else if c.Bool("x") {
-		outputHexa(extract(text))
+		outputHexa(extract(text), c.Bool("l"))
 	} else {
-		outputChar(extract(text))
+		outputChar(extract(text), c.Bool("l"))
 	}
 
 	return nil
@@ -68,6 +80,10 @@ func main() {
 		cli.BoolFlag{
 			Name:  "hexa, x",
 			Usage: "output hexadecimal number?",
+		},
+		cli.BoolFlag{
+			Name:  "oneline, l",
+			Usage: "output oneline?",
 		},
 	}
 
