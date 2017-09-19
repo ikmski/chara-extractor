@@ -11,6 +11,10 @@ func extract(text []string) []rune {
 		chars := []rune(line)
 		for _, char := range chars {
 
+			if char < 32 {
+				continue
+			}
+
 			_, ok := m[char]
 			if !ok {
 				m[char] = char
