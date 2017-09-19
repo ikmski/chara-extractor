@@ -6,6 +6,11 @@ import (
 	"github.com/urfave/cli"
 )
 
+var (
+	version  string
+	revision string
+)
+
 func outputChar(runes []rune) {
 
 	for _, r := range runes {
@@ -53,6 +58,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "chara-extractor"
 	app.Usage = "Character Extractor"
+	app.Version = version
 
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{
